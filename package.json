@@ -1,0 +1,36 @@
+{
+  "name": "vtex-css-sanitizer",
+  "version": "1.0.0",
+  "description": "Herramienta CLI para eliminar CSS y blockClass no utilizados en proyectos VTEX IO.",
+  "main": "dist/index.js",
+  "bin": {
+    "vtex-css-sanitizer": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "dev": "npm run build && node dist/index.js"
+  },
+  "keywords": [
+    "vtex",
+    "vtexio",
+    "css",
+    "cleanup"
+  ],
+  "author": "Tu Nombre",
+  "license": "ISC",
+  "dependencies": {
+    "@types/glob": "^8.1.0",
+    "commander": "^11.0.0",
+    "glob": "^8.1.0",
+    "jsonc-parser": "^3.2.0",
+    "postcss": "^8.4.29",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.7",
+    "@types/prompts": "^2.4.9",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}
