@@ -1,6 +1,13 @@
 # VTEX CSS Sanitizer
 
-Una herramienta de línea de comandos (CLI) diseñada para limpiar y optimizar las hojas de estilo en proyectos de **VTEX IO**. Analiza tu base de código para encontrar clases CSS huérfanas y declaraciones `blockClass` sin uso, ayudándote a mantener tu proyecto limpio, performante y fácil de mantener.
+---
+
+[![npm version](https://badge.fury.io/js/vtex-deploy-helper.svg)](https://badge.fury.io/js/vtex-deploy-helper)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+---
+
+vtex-css-sanitizer es una herramienta de línea de comandos (CLI) diseñada para limpiar y optimizar las hojas de estilo en proyectos de **VTEX IO**. Analiza tu base de código para encontrar clases CSS huérfanas y declaraciones `blockClass` sin uso, ayudándote a mantener tu proyecto limpio, performante y fácil de mantener.
 
 ---
 
