@@ -33,7 +33,7 @@ Estos restos de código aumentan el tamaño de los bundles y hacen que la base d
 Para usar esta herramienta en cualquier proyecto de tu máquina, instálala globalmente:
 
 ```bash
-npm install -g vtex-css-sanitizer
+npm install -g vtex-css-sanitizer-cli
 ```
 
 ### 🚀 Uso
