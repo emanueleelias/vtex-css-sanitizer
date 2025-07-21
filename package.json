@@ -17,7 +17,7 @@
     "css",
     "cleanup"
   ],
-  "author": "Tu Nombre",
+  "author": "Elias Daniel Emanuele",
   "license": "ISC",
   "dependencies": {
     "@types/glob": "^8.1.0",
