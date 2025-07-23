@@ -46,14 +46,18 @@ export async function fixCommand(projectPath: string) {
       continue;
     }
 
+    // Arreglos temporales para los cambios del archivo actual
+    const fileDeletedRules: FixReportEntry[] = [];
+    const fileKeptRules: FixReportEntry[] = [];
     let rulesRemovedInFile = 0;
+    let userCancelled = false;
+
     for (let i = 0; i < candidates.length; i++) {
       const rule = candidates[i];
       const relativePath = path.relative(projectPath, filePath);
       const ruleAsString = rule.toString();
 
       console.clear();
-      // Se muestra el progreso general y el del archivo actual
       console.log(`[ Progreso: Archivo ${fileIndex + 1} de ${totalFiles} ]`);
       console.log(`------------------------------------------------------------------`);
       console.log(`Revisando Archivo: ${relativePath}`);
@@ -71,24 +75,28 @@ export async function fixCommand(projectPath: string) {
 
       if (response.shouldDelete === undefined) {
         console.log('\n🛑 Proceso de limpieza cancelado por el usuario.');
-        // Antes de salir, generamos el informe con lo que se haya hecho hasta ahora
-        if (deletedRules.length > 0 || keptRules.length > 0) {
-          await generateFixReport(projectPath, deletedRules, keptRules);
-          console.log(`\n📄 Informe parcial de limpieza guardado.`);
-        }
-        return;
+        userCancelled = true;
+        break;
       }
 
       if (response.shouldDelete) {
+        fileDeletedRules.push({ rule: ruleAsString, filePath });
         rule.remove();
         rulesRemovedInFile++;
-        deletedRules.push({ rule: ruleAsString, filePath });
         console.log('\x1b[31m%s\x1b[0m', '🗑️  Regla eliminada.');
       } else {
-        keptRules.push({ rule: ruleAsString, filePath });
+        fileKeptRules.push({ rule: ruleAsString, filePath });
         console.log('\x1b[32m%s\x1b[0m', '👍  Regla conservada.');
       }
       console.log('------------------------------------------------------------------');
+    }
+
+    if (userCancelled) {
+      if (deletedRules.length > 0 || keptRules.length > 0) {
+        await generateFixReport(projectPath, deletedRules, keptRules);
+        console.log(`\n📄 Informe parcial de limpieza guardado con los cambios de los archivos **anteriores**.`);
+      }
+      return;
     }
 
     if (rulesRemovedInFile > 0) {
@@ -98,6 +106,9 @@ export async function fixCommand(projectPath: string) {
       totalRulesRemoved += rulesRemovedInFile;
       await prompts({ type: 'invisible', name: 'continue', message: 'Presiona Enter para continuar con el siguiente archivo...' });
     }
+
+    deletedRules.push(...fileDeletedRules);
+    keptRules.push(...fileKeptRules);
   }
 
   console.clear();
@@ -116,4 +127,3 @@ export async function fixCommand(projectPath: string) {
     }
   }
 }
-

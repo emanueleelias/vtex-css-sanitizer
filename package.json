@@ -1,6 +1,6 @@
 {
   "name": "vtex-css-sanitizer-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Herramienta CLI para eliminar CSS y blockClass no utilizados en proyectos VTEX IO.",
   "main": "dist/index.js",
   "bin": {
