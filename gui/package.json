@@ -1,0 +1,40 @@
+{
+    "name": "vtex-css-sanitizer-gui",
+    "version": "1.0.0",
+    "description": "Aplicación de escritorio para analizar y limpiar CSS en proyectos VTEX IO",
+    "main": "./out/main/index.js",
+    "author": "Elias Daniel Emanuele",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "dev": "electron-vite dev",
+        "build": "electron-vite build",
+        "preview": "electron-vite preview",
+        "build:linux": "electron-vite build && electron-builder --linux",
+        "build:win": "electron-vite build && electron-builder --win",
+        "build:all": "electron-vite build && electron-builder --linux --win"
+    },
+    "dependencies": {
+        "glob": "^8.1.0",
+        "jsonc-parser": "^3.2.0",
+        "postcss": "^8.4.29",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1"
+    },
+    "devDependencies": {
+        "@electron-toolkit/preload": "^3.0.1",
+        "@electron-toolkit/utils": "^3.0.0",
+        "@tailwindcss/vite": "^4.0.0",
+        "@types/react": "^18.3.12",
+        "@types/react-dom": "^18.3.1",
+        "@types/glob": "^8.1.0",
+        "@types/node": "^20.14.0",
+        "@vitejs/plugin-react": "^4.3.4",
+        "electron": "^33.2.1",
+        "electron-builder": "^25.1.8",
+        "electron-vite": "^2.3.0",
+        "tailwindcss": "^4.0.0",
+        "typescript": "^5.6.3",
+        "vite": "^6.0.0"
+    }
+}

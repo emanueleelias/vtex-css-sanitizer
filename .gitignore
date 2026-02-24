@@ -128,3 +128,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Electron GUI
+gui/dist/
+gui/out/
+gui/release/
+gui/node_modules/
