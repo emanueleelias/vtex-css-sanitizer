@@ -44,12 +44,12 @@ function App(): JSX.Element {
     return (
         <div className="h-full flex flex-col bg-bg-primary">
             {/* Header */}
-            <header className="flex items-center gap-3 px-6 py-3 bg-bg-secondary border-b border-border drag-region">
-                <div className="flex items-center gap-2 no-drag">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-pink to-accent-blue flex items-center justify-center">
-                        <span className="text-white text-sm font-bold">V</span>
+            <header className="flex items-center gap-4 px-8 py-4 bg-bg-secondary border-b border-border drag-region">
+                <div className="flex items-center gap-3 no-drag">
+                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-pink to-accent-blue flex items-center justify-center">
+                        <span className="text-white text-base font-bold">V</span>
                     </div>
-                    <h1 className="text-base font-semibold text-text-primary">VTEX CSS Sanitizer</h1>
+                    <h1 className="text-lg font-semibold text-text-primary tracking-wide">VTEX CSS Sanitizer</h1>
                 </div>
                 {projectPath && (
                     <span className="ml-auto text-xs text-text-muted font-mono truncate max-w-[400px] no-drag">

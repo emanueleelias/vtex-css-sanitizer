@@ -123,7 +123,7 @@ function FixPage({ projectPath, onBack, onGoHome }: FixPageProps): JSX.Element {
                     <div className="text-5xl mb-4">✅</div>
                     <h3 className="text-xl font-bold text-accent-green mb-2">¡Limpieza completada!</h3>
                     <p className="text-text-secondary text-sm mb-6">
-                        Se eliminaron <span className="text-accent-pink font-bold font-mono">{deletedCount}</span> reglas
+                        Se eliminaron <span className="text-accent-blue font-bold font-mono">{deletedCount}</span> reglas
                         CSS de tu proyecto.
                     </p>
 
@@ -138,7 +138,7 @@ function FixPage({ projectPath, onBack, onGoHome }: FixPageProps): JSX.Element {
                         )}
                         <button
                             onClick={onGoHome}
-                            className="w-full px-6 py-2.5 rounded-xl bg-gradient-to-r from-accent-pink to-accent-pink-hover text-white font-semibold text-sm hover:shadow-lg hover:shadow-accent-pink/25 transition-all duration-300"
+                            className="w-full px-6 py-2.5 rounded-xl bg-gradient-to-r from-accent-blue-btn to-accent-blue-btn-hover text-white font-semibold text-sm hover:shadow-lg hover:shadow-accent-blue-btn/25 transition-all duration-300"
                         >
                             🏠 Analizar otro proyecto
                         </button>
@@ -169,23 +169,23 @@ function FixPage({ projectPath, onBack, onGoHome }: FixPageProps): JSX.Element {
     return (
         <div className="h-full flex flex-col overflow-hidden">
             {/* Toolbar */}
-            <div className="px-6 py-3 bg-bg-secondary border-b border-border flex items-center gap-4">
-                <h3 className="text-sm font-semibold text-text-primary">
+            <div className="px-8 py-5 bg-bg-secondary border-b border-border flex items-center gap-5">
+                <h3 className="text-base font-semibold text-text-primary tracking-wide">
                     Reglas candidatas a eliminar
                 </h3>
-                <span className="text-xs text-text-muted font-mono">
+                <span className="text-sm text-text-muted font-mono bg-bg-card px-3 py-1 rounded-md border border-border">
                     {selectedIds.size} de {candidates.length} seleccionadas
                 </span>
-                <div className="ml-auto flex items-center gap-2">
+                <div className="ml-auto flex items-center gap-3">
                     <button
                         onClick={selectAll}
-                        className="px-3 py-1.5 rounded-lg text-xs text-accent-blue hover:bg-bg-card transition-colors border border-border"
+                        className="px-4 py-2 rounded-lg text-sm text-accent-blue hover:bg-bg-card transition-colors border border-border font-medium"
                     >
                         Seleccionar todas
                     </button>
                     <button
                         onClick={deselectAll}
-                        className="px-3 py-1.5 rounded-lg text-xs text-text-muted hover:bg-bg-card transition-colors border border-border"
+                        className="px-4 py-2 rounded-lg text-sm text-text-muted hover:bg-bg-card transition-colors border border-border font-medium"
                     >
                         Deseleccionar todas
                     </button>
@@ -193,7 +193,7 @@ function FixPage({ projectPath, onBack, onGoHome }: FixPageProps): JSX.Element {
             </div>
 
             {/* Rules list */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-4">
+            <div className="flex-1 overflow-y-auto p-8 space-y-8">
                 {candidates.length === 0 ? (
                     <div className="fade-in text-center py-16">
                         <div className="text-5xl mb-4">🎉</div>
@@ -205,34 +205,36 @@ function FixPage({ projectPath, onBack, onGoHome }: FixPageProps): JSX.Element {
                 ) : (
                     Object.entries(groupedByFile).map(([file, rules]) => (
                         <div key={file} className="fade-in">
-                            <div className="flex items-center gap-2 mb-2">
-                                <svg className="w-4 h-4 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                            <div className="flex items-center gap-3 mb-3">
+                                <svg className="w-5 h-5 text-text-muted/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
-                                <span className="text-xs font-mono text-text-secondary">{file}</span>
-                                <span className="text-[10px] text-text-muted">{rules.length} regla{rules.length > 1 ? 's' : ''}</span>
+                                <span className="text-sm font-mono text-text-secondary font-medium">{file}</span>
+                                <span className="text-xs text-text-muted bg-bg-card px-2 py-0.5 rounded-full border border-border/50">
+                                    {rules.length} regla{rules.length > 1 ? 's' : ''}
+                                </span>
                             </div>
-                            <div className="space-y-2">
+                            <div className="space-y-3">
                                 {rules.map((rule) => (
                                     <div
                                         key={rule.id}
-                                        className={`rounded-xl border transition-all duration-200 ${selectedIds.has(rule.id)
-                                                ? 'bg-accent-red/5 border-accent-red/30'
-                                                : 'bg-bg-card border-border hover:border-border-active/30'
+                                        className={`rounded-2xl border transition-all duration-200 ${selectedIds.has(rule.id)
+                                            ? 'bg-accent-red/5 border-accent-red/30'
+                                            : 'bg-bg-input border-border hover:border-border-active/30'
                                             }`}
                                     >
-                                        <div className="flex items-start gap-3 p-4">
+                                        <div className="flex items-start gap-4 p-5">
                                             <input
                                                 type="checkbox"
                                                 checked={selectedIds.has(rule.id)}
                                                 onChange={() => toggleRule(rule.id)}
-                                                className="mt-0.5"
+                                                className="mt-1 w-5 h-5 rounded"
                                             />
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-sm font-mono text-text-primary truncate">{rule.selector}</p>
+                                                <p className="text-base font-mono text-text-primary truncate">{rule.selector}</p>
                                                 <button
                                                     onClick={() => toggleExpand(rule.id)}
-                                                    className="text-[10px] text-accent-blue hover:underline mt-1"
+                                                    className="text-xs text-accent-blue hover:underline mb-1 mt-2 inline-block font-medium"
                                                 >
                                                     {expandedIds.has(rule.id) ? 'Ocultar código ▲' : 'Ver código ▼'}
                                                 </button>
@@ -243,7 +245,7 @@ function FixPage({ projectPath, onBack, onGoHome }: FixPageProps): JSX.Element {
                                                 )}
                                             </div>
                                             {selectedIds.has(rule.id) && (
-                                                <span className="text-[10px] text-accent-red font-medium shrink-0 mt-1">
+                                                <span className="text-xs px-2 py-1 rounded bg-accent-red/10 text-accent-red font-bold shrink-0 mt-0.5 uppercase tracking-wider">
                                                     SE ELIMINARÁ
                                                 </span>
                                             )}
@@ -257,26 +259,26 @@ function FixPage({ projectPath, onBack, onGoHome }: FixPageProps): JSX.Element {
             </div>
 
             {/* Action bar */}
-            <div className="px-6 py-4 bg-bg-secondary border-t border-border flex items-center gap-3">
+            <div className="px-8 py-5 bg-bg-secondary border-t border-border flex items-center gap-4">
                 <button
                     onClick={onBack}
-                    className="px-4 py-2 rounded-lg text-sm text-text-secondary hover:text-text-primary hover:bg-bg-card transition-colors border border-border"
+                    className="px-5 py-3 rounded-xl text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-bg-card transition-colors border border-border"
                 >
-                    ← Volver
+                    ← Volver atrás
                 </button>
                 <div className="flex-1" />
                 {status === 'applying' ? (
-                    <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded-full border-2 border-accent-pink border-t-transparent animate-spin" />
-                        <span className="text-sm text-text-secondary">Aplicando cambios...</span>
+                    <div className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-accent-blue border-t-transparent animate-spin" />
+                        <span className="text-base text-text-secondary font-medium">Aplicando cambios...</span>
                     </div>
                 ) : (
                     <button
                         onClick={handleApplyFix}
                         disabled={selectedIds.size === 0}
-                        className={`px-6 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 ${selectedIds.size > 0
-                                ? 'bg-gradient-to-r from-accent-pink to-accent-pink-hover text-white hover:shadow-lg hover:shadow-accent-pink/25 hover:scale-[1.02] active:scale-[0.98]'
-                                : 'bg-bg-card text-text-muted cursor-not-allowed'
+                        className={`px-8 py-3.5 rounded-xl font-semibold text-base transition-all duration-300 ${selectedIds.size > 0
+                            ? 'bg-gradient-to-r from-accent-blue-btn to-accent-blue-btn-hover text-white hover:shadow-xl hover:shadow-accent-blue-btn/20 hover:scale-[1.02] active:scale-[0.98]'
+                            : 'bg-bg-card border border-border text-text-muted cursor-not-allowed'
                             }`}
                     >
                         🗑️ Eliminar {selectedIds.size} regla{selectedIds.size !== 1 ? 's' : ''}

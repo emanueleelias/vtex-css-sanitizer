@@ -46,29 +46,29 @@ function HomePage({ onAnalysisComplete }: HomePageProps): JSX.Element {
     }, [selectedPath, onAnalysisComplete])
 
     return (
-        <div className="h-full flex items-center justify-center p-8">
-            <div className="fade-in max-w-lg w-full text-center">
+        <div className="h-full flex items-center justify-center p-12">
+            <div className="fade-in max-w-xl w-full text-center">
                 {/* Logo grande */}
-                <div className="mx-auto w-20 h-20 rounded-2xl bg-gradient-to-br from-accent-pink via-accent-blue to-accent-green flex items-center justify-center mb-6 pulse-glow">
-                    <span className="text-white text-3xl font-bold">V</span>
+                <div className="mx-auto w-24 h-24 rounded-2xl bg-gradient-to-br from-accent-pink via-accent-blue to-accent-green flex items-center justify-center mb-8 pulse-glow shadow-lg shadow-accent-pink/10">
+                    <span className="text-white text-4xl font-bold">V</span>
                 </div>
 
-                <h2 className="text-2xl font-bold text-text-primary mb-2">VTEX CSS Sanitizer</h2>
-                <p className="text-text-secondary text-sm mb-8 leading-relaxed">
+                <h2 className="text-3xl font-bold text-text-primary mb-4 tracking-tight">VTEX CSS Sanitizer</h2>
+                <p className="text-text-secondary text-base mb-10 leading-relaxed max-w-md mx-auto">
                     Analiza y limpia clases CSS y blockClass no utilizados en tu proyecto VTEX IO.
-                    <br />
+                    <br className="mb-2" />
                     Selecciona la carpeta raíz de tu proyecto para comenzar.
                 </p>
 
                 {/* Selector de carpeta */}
-                <div className="space-y-4">
+                <div className="space-y-6">
                     <button
                         onClick={handleSelectFolder}
-                        className="w-full group relative overflow-hidden rounded-xl border-2 border-dashed border-border hover:border-accent-blue transition-all duration-300 p-6 cursor-pointer bg-bg-secondary hover:bg-bg-card"
+                        className="w-full group relative overflow-hidden rounded-2xl border-2 border-dashed border-border hover:border-accent-blue transition-all duration-300 p-8 cursor-pointer bg-bg-secondary hover:bg-bg-card"
                     >
-                        <div className="flex flex-col items-center gap-3">
-                            <div className="w-12 h-12 rounded-full bg-bg-card group-hover:bg-accent-blue/10 flex items-center justify-center transition-colors duration-300">
-                                <svg className="w-6 h-6 text-text-muted group-hover:text-accent-blue transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <div className="flex flex-col items-center gap-4">
+                            <div className="w-14 h-14 rounded-full bg-bg-card group-hover:bg-accent-blue/10 flex items-center justify-center transition-colors duration-300">
+                                <svg className="w-7 h-7 text-text-muted group-hover:text-accent-blue transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
                                 </svg>
                             </div>
@@ -95,7 +95,7 @@ function HomePage({ onAnalysisComplete }: HomePageProps): JSX.Element {
                     {status === 'selected' && (
                         <button
                             onClick={handleAnalyze}
-                            className="fade-in w-full py-3 px-6 rounded-xl bg-gradient-to-r from-accent-pink to-accent-pink-hover text-white font-semibold text-sm hover:shadow-lg hover:shadow-accent-pink/25 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                            className="fade-in w-full py-4 px-8 rounded-xl bg-gradient-to-r from-accent-blue-btn to-accent-blue-btn-hover text-white font-semibold text-base tracking-wide hover:shadow-xl hover:shadow-accent-blue-btn/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                         >
                             🔍 Analizar Proyecto
                         </button>
