@@ -139,11 +139,40 @@ img {
 .nav__links a {
   font-size: 0.875rem;
   color: var(--text-muted);
+  font-weight: 500;
   transition: color var(--transition);
 }
 
 .nav__links a:hover {
   color: var(--text);
+}
+
+.nav__lang-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+}
+
+.nav__lang-toggle:hover {
+  background: var(--bg-card);
+  border-color: var(--border-light);
+  color: var(--accent);
+}
+
+.nav__links a:last-child {
+  display: flex;
+  align-items: center;
 }
 
 .nav__github {
