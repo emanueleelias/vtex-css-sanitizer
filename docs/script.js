@@ -109,6 +109,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // -- Fetch npm version --
+  const npmVersionSpan = document.getElementById('npmVersion');
+  if (npmVersionSpan) {
+    fetch('https://registry.npmjs.org/vtex-css-sanitizer-cli/latest')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.version) {
+          npmVersionSpan.textContent = `npm v${data.version}`;
+        }
+      })
+      .catch(err => console.error('Error fetching npm version:', err));
+  }
+
   // -- Copy to clipboard --
   function setupCopyButton(blockId, btnId) {
     const block = document.getElementById(blockId);
