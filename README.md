@@ -7,7 +7,7 @@
 
 ---
 
-vtex-css-sanitizer es una herramienta de línea de comandos (CLI) diseñada para limpiar y optimizar las hojas de estilo en proyectos de **VTEX IO**. Analiza tu base de código para encontrar clases CSS huérfanas y declaraciones `blockClass` sin uso, ayudándote a mantener tu proyecto limpio, performante y fácil de mantener.
+vtex-css-sanitizer es una herramienta diseñada para limpiar y optimizar las hojas de estilo en proyectos de **VTEX IO**. Analiza tu base de código para encontrar clases CSS huérfanas y declaraciones `blockClass` sin uso, ayudándote a mantener tu proyecto limpio, performante y fácil de mantener. Disponible como **Aplicación de Escritorio (GUI)** o como herramienta de **Línea de Comandos (CLI)**.
 
 ---
 
@@ -23,22 +23,35 @@ Estos restos de código aumentan el tamaño de los bundles y hacen que la base d
 ### ✨ Características
 
 - **Análisis Bidireccional:** Encuentra tanto CSS sin `blockClass` como `blockClass` sin CSS.
-- **Limpieza Interactiva:** El comando `fix` te guía a través de cada regla candidata, dándote el control total para decidir qué se elimina y qué se conserva.
+- **Doble Interfaz:** Utilizalo desde tu terminal preferida (CLI) o a través de nuestra moderna Aplicación de Escritorio (GUI).
+- **Limpieza Interactiva:** El proceso guiado te permite decidir qué se elimina y qué se conserva regla por regla.
 - **Inteligente:** Reconoce las clases de estado dinámicas de VTEX (ej. `--isActive`) y solo valida el `blockClass` principal.
 - **Seguro:** Ignora automáticamente los archivos CSS de componentes React custom para evitar falsos positivos.
 - **Informes Detallados:** Genera informes en formato Markdown de cada análisis y sesión de limpieza para un registro histórico.
 
-### 📦 Instalación
+### 📦 Descargas e Instalación
 
-Para usar esta herramienta en cualquier proyecto de tu máquina, instálala globalmente:
+Elegí la versión que mejor se adapte a tu necesidad:
+
+#### 1. Versión GUI (Aplicación de Escritorio)
+
+Interfaz visual intuitiva para analizar y limpiar tu proyecto sin tocar la terminal.
+- **[Descargar para Windows (.exe)](https://github.com/emanueleelias/vtex-css-sanitizer/releases/latest)**
+- **[Descargar para Linux (.AppImage)](https://github.com/emanueleelias/vtex-css-sanitizer/releases/latest)**
+
+*(Los binarios se encuentran en la sección "Assets" de cada Release).*
+
+#### 2. Versión CLI (Línea de Comandos)
+
+Ideal para integrar en workflows de desarrollo. Para usar la herramienta en cualquier proyecto local, instálala globalmente vía npm:
 
 ```bash
 npm install -g vtex-css-sanitizer-cli
 ```
 
-### 🚀 Uso
+### 🚀 Uso (Versión CLI)
 
-Navega a la carpeta raíz de tu proyecto VTEX IO y ejecuta los siguientes comandos.
+Navega a la carpeta raíz de tu proyecto VTEX IO y ejecuta los siguientes comandos. *(Nota: La versión GUI proporciona botones visuales equivalentes a estos comandos).*
 
 #### 1. Analizar el Proyecto (`analyze`)
 
