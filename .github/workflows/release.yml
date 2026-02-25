@@ -1,0 +1,75 @@
+# Workflow: Build & Release
+# Se dispara cuando se hace push de un tag con formato v*.*.*
+# Compila la GUI para Windows y Linux y crea un GitHub Release con los binarios.
+
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux
+            build_script: build:linux
+          - os: windows-latest
+            platform: win
+            build_script: build:win
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: gui
+        run: yarn install --frozen-lockfile
+
+      - name: Build & Package
+        working-directory: gui
+        run: yarn ${{ matrix.build_script }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.platform }}
+          path: |
+            gui/release/*.exe
+            gui/release/*.AppImage
+          if-no-files-found: warn
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: List artifacts
+        run: find artifacts -type f | head -20
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            artifacts/**/*.exe
+            artifacts/**/*.AppImage
