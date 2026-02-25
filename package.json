@@ -7,7 +7,7 @@
     "vtex-css-sanitizer": "dist/index.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "npx tsc",
     "start": "ts-node src/index.ts",
     "dev": "npm run build && node dist/index.js"
   },
