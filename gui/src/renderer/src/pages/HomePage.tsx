@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import { Paintbrush, FolderOpen, Search } from 'lucide-react'
 
 interface AnalysisData {
     unusedCss: { suffix: string; locations: { filePath: string; selector: string }[] }[]
@@ -50,7 +51,7 @@ function HomePage({ onAnalysisComplete }: HomePageProps): JSX.Element {
             <div className="fade-in max-w-xl w-full text-center">
                 {/* Logo grande */}
                 <div className="mx-auto w-24 h-24 rounded-2xl bg-gradient-to-br from-accent-pink via-accent-blue to-accent-green flex items-center justify-center mb-8 pulse-glow shadow-lg shadow-accent-pink/10">
-                    <span className="text-white text-4xl font-bold">V</span>
+                    <Paintbrush size={48} className="text-white" />
                 </div>
 
                 <h2 className="text-3xl font-bold text-text-primary mb-4 tracking-tight">VTEX CSS Sanitizer</h2>
@@ -68,9 +69,7 @@ function HomePage({ onAnalysisComplete }: HomePageProps): JSX.Element {
                     >
                         <div className="flex flex-col items-center gap-4">
                             <div className="w-14 h-14 rounded-full bg-bg-card group-hover:bg-accent-blue/10 flex items-center justify-center transition-colors duration-300">
-                                <svg className="w-7 h-7 text-text-muted group-hover:text-accent-blue transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
-                                </svg>
+                                <FolderOpen className="w-7 h-7 text-text-muted group-hover:text-accent-blue transition-colors" strokeWidth={1.5} />
                             </div>
 
                             {selectedPath ? (
@@ -95,9 +94,10 @@ function HomePage({ onAnalysisComplete }: HomePageProps): JSX.Element {
                     {status === 'selected' && (
                         <button
                             onClick={handleAnalyze}
-                            className="fade-in w-full py-4 px-8 rounded-xl bg-gradient-to-r from-accent-blue-btn to-accent-blue-btn-hover text-white font-semibold text-base tracking-wide hover:shadow-xl hover:shadow-accent-blue-btn/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                            className="fade-in w-full py-4 px-8 rounded-xl bg-gradient-to-r from-accent-blue-btn to-accent-blue-btn-hover text-white font-semibold text-base tracking-wide hover:shadow-xl hover:shadow-accent-blue-btn/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
                         >
-                            🔍 Analizar Proyecto
+                            <Search size={18} />
+                            Analizar Proyecto
                         </button>
                     )}
 

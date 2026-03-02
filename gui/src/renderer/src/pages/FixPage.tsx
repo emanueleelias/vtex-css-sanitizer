@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { FileCode2, CheckCircle, FileText, Home, XCircle, ArrowLeft, Trash2 } from 'lucide-react'
 
 interface RuleCandidate {
     id: string
@@ -120,7 +121,9 @@ function FixPage({ projectPath, onBack, onGoHome }: FixPageProps): JSX.Element {
         return (
             <div className="h-full flex items-center justify-center">
                 <div className="fade-in text-center max-w-md">
-                    <div className="text-5xl mb-4">✅</div>
+                    <div className="flex justify-center mb-4 text-accent-green">
+                        <CheckCircle size={48} />
+                    </div>
                     <h3 className="text-xl font-bold text-accent-green mb-2">¡Limpieza completada!</h3>
                     <p className="text-text-secondary text-sm mb-6">
                         Se eliminaron <span className="text-accent-blue font-bold font-mono">{deletedCount}</span> reglas
@@ -131,16 +134,18 @@ function FixPage({ projectPath, onBack, onGoHome }: FixPageProps): JSX.Element {
                         {reportPath && (
                             <button
                                 onClick={handleOpenReport}
-                                className="w-full px-6 py-2.5 rounded-xl border border-border hover:border-accent-blue bg-bg-card hover:bg-bg-card-hover text-sm text-text-primary transition-all"
+                                className="w-full flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl border border-border hover:border-accent-blue bg-bg-card hover:bg-bg-card-hover text-sm text-text-primary transition-all"
                             >
-                                📄 Ver reporte en explorador
+                                <FileText size={16} />
+                                Ver reporte en explorador
                             </button>
                         )}
                         <button
                             onClick={onGoHome}
-                            className="w-full px-6 py-2.5 rounded-xl bg-gradient-to-r from-accent-blue-btn to-accent-blue-btn-hover text-white font-semibold text-sm hover:shadow-lg hover:shadow-accent-blue-btn/25 transition-all duration-300"
+                            className="w-full flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-accent-blue-btn to-accent-blue-btn-hover text-white font-semibold text-sm hover:shadow-lg hover:shadow-accent-blue-btn/25 transition-all duration-300"
                         >
-                            🏠 Analizar otro proyecto
+                            <Home size={16} />
+                            Analizar otro proyecto
                         </button>
                     </div>
                 </div>
@@ -152,14 +157,17 @@ function FixPage({ projectPath, onBack, onGoHome }: FixPageProps): JSX.Element {
         return (
             <div className="h-full flex items-center justify-center">
                 <div className="fade-in text-center max-w-md">
-                    <div className="text-5xl mb-4">❌</div>
+                    <div className="flex justify-center mb-4 text-accent-red">
+                        <XCircle size={48} />
+                    </div>
                     <h3 className="text-lg font-bold text-accent-red mb-2">Error</h3>
                     <p className="text-text-secondary text-sm mb-4">{errorMsg}</p>
                     <button
                         onClick={onBack}
-                        className="px-4 py-2 rounded-lg text-sm text-accent-blue hover:underline"
+                        className="px-4 py-2 flex items-center justify-center gap-2 mx-auto rounded-lg text-sm text-accent-blue hover:underline"
                     >
-                        ← Volver al análisis
+                        <ArrowLeft size={14} />
+                        Volver al análisis
                     </button>
                 </div>
             </div>
@@ -206,9 +214,7 @@ function FixPage({ projectPath, onBack, onGoHome }: FixPageProps): JSX.Element {
                     Object.entries(groupedByFile).map(([file, rules]) => (
                         <div key={file} className="fade-in">
                             <div className="flex items-center gap-3 mb-3">
-                                <svg className="w-5 h-5 text-text-muted/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
+                                <FileCode2 className="w-5 h-5 text-text-muted/80" strokeWidth={1.5} />
                                 <span className="text-sm font-mono text-text-secondary font-medium">{file}</span>
                                 <span className="text-xs text-text-muted bg-bg-card px-2 py-0.5 rounded-full border border-border/50">
                                     {rules.length} regla{rules.length > 1 ? 's' : ''}
@@ -262,9 +268,10 @@ function FixPage({ projectPath, onBack, onGoHome }: FixPageProps): JSX.Element {
             <div className="px-8 py-5 bg-bg-secondary border-t border-border flex items-center gap-4">
                 <button
                     onClick={onBack}
-                    className="px-5 py-3 rounded-xl text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-bg-card transition-colors border border-border"
+                    className="px-5 py-3 rounded-xl text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-bg-card transition-colors border border-border flex items-center gap-2"
                 >
-                    ← Volver atrás
+                    <ArrowLeft size={16} />
+                    Volver atrás
                 </button>
                 <div className="flex-1" />
                 {status === 'applying' ? (
@@ -276,12 +283,13 @@ function FixPage({ projectPath, onBack, onGoHome }: FixPageProps): JSX.Element {
                     <button
                         onClick={handleApplyFix}
                         disabled={selectedIds.size === 0}
-                        className={`px-8 py-3.5 rounded-xl font-semibold text-base transition-all duration-300 ${selectedIds.size > 0
+                        className={`px-8 py-3.5 flex items-center gap-2 rounded-xl font-semibold text-base transition-all duration-300 ${selectedIds.size > 0
                             ? 'bg-gradient-to-r from-accent-blue-btn to-accent-blue-btn-hover text-white hover:shadow-xl hover:shadow-accent-blue-btn/20 hover:scale-[1.02] active:scale-[0.98]'
                             : 'bg-bg-card border border-border text-text-muted cursor-not-allowed'
                             }`}
                     >
-                        🗑️ Eliminar {selectedIds.size} regla{selectedIds.size !== 1 ? 's' : ''}
+                        <Trash2 size={18} />
+                        Eliminar {selectedIds.size} regla{selectedIds.size !== 1 ? 's' : ''}
                     </button>
                 )}
             </div>

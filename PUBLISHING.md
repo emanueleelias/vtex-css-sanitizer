@@ -2,34 +2,13 @@
 
 Este repositorio actúa como un monorepo que contiene 3 proyectos independientes que conviven juntos. Cada uno tiene su propio flujo de publicación y distribución:
 
-1. **Landing Page (`/docs`)**: Hospedada en GitHub Pages.
-2. **CLI (Línea de comandos)**: Publicado en el registro de `npm`.
-3. **GUI (Aplicación de Escritorio)**: Compilado y publicado en GitHub Releases a través de GitHub Actions.
+1. **CLI (Línea de comandos)**: Publicado en el registro de `npm`.
+2. **GUI (Aplicación de Escritorio)**: Compilado y publicado en GitHub Releases a través de GitHub Actions.
 
 A continuación se detalla cómo trabajar con cada uno de ellos cuando hay cambios.
 
----
 
-## 1. Landing Page (`/docs`)
-
-La página web se actualiza automáticamente a través de GitHub Pages cada vez que se hace un `push` a la rama `main` que incluya cambios en la carpeta `/docs`.
-
-**Cómo publicar cambios (ej. modificar textos, diseño o iconos):**
-
-1. Haz tus cambios en los archivos correspondientes (ej: `docs/index.html`, `docs/styles.css`).
-2. Haz commit y push de los cambios:
-   ```bash
-   git add docs/
-   git commit -m "docs: actualizar landing page"
-   git push origin main
-   ```
-3. Los cambios se verán reflejados en [https://emanueleelias.github.io/vtex-css-sanitizer/](https://emanueleelias.github.io/vtex-css-sanitizer/) en 1 o 2 minutos.
-
-*Nota: No es necesario crear un Release de la aplicación para que la landing page se actualice.*
-
----
-
-## 2. CLI (NPM Package)
+## 1. CLI (NPM Package)
 
 La versión de línea de comandos se encuentra en la raíz del proyecto (`/src`) y se distribuye a través del registro de `npm` (`vtex-css-sanitizer-cli`).
 
@@ -57,7 +36,7 @@ La versión de línea de comandos se encuentra en la raíz del proyecto (`/src`)
 
 ---
 
-## 3. GUI (Aplicación de Escritorio)
+## 2. GUI (Aplicación de Escritorio)
 
 La aplicación con interfaz gráfica y Electron se encuentra completamente autocontenida en la carpeta `/gui`. Las actualizaciones de esta aplicación se distribuyen a través de la pestaña de **Releases** en GitHub.
 

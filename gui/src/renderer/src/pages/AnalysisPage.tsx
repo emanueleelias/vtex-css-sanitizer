@@ -11,6 +11,7 @@ interface AnalysisData {
         uniqueCssSuffixes: number
     }
 }
+import { FileCode2, ArrowLeft, Wrench } from 'lucide-react'
 
 interface AnalysisPageProps {
     data: AnalysisData
@@ -84,9 +85,7 @@ function AnalysisPage({ data, onGoToFix, onGoHome }: AnalysisPageProps): JSX.Ele
                                                     <div className="mt-2 space-y-1">
                                                         {item.locations.slice(0, 3).map((loc, i) => (
                                                             <div key={i} className="flex items-center gap-2 text-xs text-text-muted">
-                                                                <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                                                </svg>
+                                                                <FileCode2 className="w-3 h-3 shrink-0" strokeWidth={2} />
                                                                 <span className="truncate">{loc.filePath}</span>
                                                                 <span className="text-text-muted/60 font-mono text-[10px]">{loc.selector}</span>
                                                             </div>
@@ -132,9 +131,7 @@ function AnalysisPage({ data, onGoToFix, onGoHome }: AnalysisPageProps): JSX.Ele
                                                     <div className="mt-2 space-y-1">
                                                         {item.locations.slice(0, 3).map((loc, i) => (
                                                             <div key={i} className="flex items-center gap-2 text-xs text-text-muted">
-                                                                <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                                                </svg>
+                                                                <FileCode2 className="w-3 h-3 shrink-0" strokeWidth={2} />
                                                                 <span className="truncate">{loc.filePath}</span>
                                                                 <span className="text-text-muted/60 text-[10px]">bloque: {loc.blockName}</span>
                                                             </div>
@@ -160,17 +157,19 @@ function AnalysisPage({ data, onGoToFix, onGoHome }: AnalysisPageProps): JSX.Ele
             <div className="px-8 py-5 bg-bg-secondary border-t border-border flex items-center gap-4">
                 <button
                     onClick={onGoHome}
-                    className="px-5 py-3 rounded-xl text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-bg-card transition-colors border border-border"
+                    className="px-5 py-3 rounded-xl text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-bg-card transition-colors border border-border flex items-center gap-2"
                 >
-                    ← Volver al inicio
+                    <ArrowLeft size={16} />
+                    Volver al inicio
                 </button>
                 <div className="flex-1" />
                 {hasUnusedCss && (
                     <button
                         onClick={onGoToFix}
-                        className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-accent-blue-btn to-accent-blue-btn-hover text-white font-semibold text-base tracking-wide hover:shadow-xl hover:shadow-accent-blue-btn/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                        className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-accent-blue-btn to-accent-blue-btn-hover text-white font-semibold text-base tracking-wide hover:shadow-xl hover:shadow-accent-blue-btn/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
                     >
-                        🛠️ Proceder a Limpiar CSS
+                        <Wrench size={18} />
+                        Proceder a Limpiar CSS
                     </button>
                 )}
             </div>

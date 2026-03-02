@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import HomePage from './pages/HomePage'
 import AnalysisPage from './pages/AnalysisPage'
 import FixPage from './pages/FixPage'
+import { Paintbrush } from 'lucide-react'
 
 type Page = 'home' | 'analysis' | 'fix'
 
@@ -46,8 +47,8 @@ function App(): JSX.Element {
             {/* Header */}
             <header className="flex items-center gap-4 px-8 py-4 bg-bg-secondary border-b border-border drag-region">
                 <div className="flex items-center gap-3 no-drag">
-                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-pink to-accent-blue flex items-center justify-center">
-                        <span className="text-white text-base font-bold">V</span>
+                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-pink to-accent-blue flex items-center justify-center shadow-md">
+                        <Paintbrush size={18} className="text-white" />
                     </div>
                     <h1 className="text-lg font-semibold text-text-primary tracking-wide">VTEX CSS Sanitizer</h1>
                 </div>
