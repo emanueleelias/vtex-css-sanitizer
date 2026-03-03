@@ -45,18 +45,17 @@ Los botones de "Descargar para Windows" o "Descargar para Linux" en la Landing P
 **Cómo generar y publicar una nueva versión de la GUI:**
 
 1. Realiza y prueba tus cambios dentro de la carpeta `/gui`.
-2. Actualiza la versión en el archivo `/gui/package.json` (esto es importante para que el nombre del binario generado y los reportes de versión internos sean los correctos).
-3. Haz commit y push de los cambios a la rama `main`:
+2. Haz commit y push de los cambios a la rama `main`:
    ```bash
    git add gui/
    git commit -m "feat(gui): nueva funcionalidad"
    git push origin main
    ```
-4. **Dispara la creación del Release en GitHub creando un tag Git:**
+3. **Dispara la creación del Release en GitHub creando un tag Git:**
    Debes crear un tag en Git que comience con la letra `v` apuntando a la versión que quieres publicar:
    ```bash
-   git tag v1.0.5
-   git push origin v1.0.5
+   git tag v1.0.7
+   git push origin v1.0.7
    ```
    *(También puedes empujar tus tags de una vez usando `git push origin main --tags`)*
 
@@ -64,6 +63,6 @@ Los botones de "Descargar para Windows" o "Descargar para Linux" en la Landing P
 
 1. GitHub intercepta el tag `v*.*.*` y automáticamente arranca la [GitHub Action programada](.github/workflows/release.yml).
 2. La Action levanta dos entornos virtuales en los servidores de GitHub (uno con Windows y otro con Ubuntu).
-3. Automáticamente ingresa a la carpeta `/gui`, instala dependencias, compila el framework y genera los instaladores `.exe` (NSIS para Windows) y `.AppImage` (para Linux).
+3. Automáticamente ingresa a la carpeta `/gui`, instala dependencias, **sincroniza la versión del tag en `gui/package.json`**, compila el framework y genera los instaladores `.exe` (NSIS para Windows) y `.AppImage` (para Linux).
 4. La Action crea la entrada en la sección **Releases** de este repositorio y sube ambos binarios como *assets*.
 5. A partir de ese momento, los botones de la Landing Page empezarán a servir automáticamente esta nueva versión.
