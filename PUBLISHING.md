@@ -1,65 +1,81 @@
 # Guía de Publicación y Releases
 
-Este repositorio actúa como un monorepo que contiene 3 proyectos independientes que conviven juntos. Cada uno tiene su propio flujo de publicación y distribución:
+Este repositorio actúa como un monorepo que contiene 2 proyectos independientes que conviven juntos:
 
 1. **CLI (Línea de comandos)**: Publicado en el registro de `npm`.
 2. **GUI (Aplicación de Escritorio)**: Compilado y publicado en GitHub Releases a través de GitHub Actions.
 
-A continuación se detalla cómo trabajar con cada uno de ellos cuando hay cambios.
+A continuación se detallan los 3 escenarios posibles de publicación.
 
-
-## 1. CLI (NPM Package)
-
-La versión de línea de comandos se encuentra en la raíz del proyecto (`/src`) y se distribuye a través del registro de `npm` (`vtex-css-sanitizer-cli`).
-
-**Cómo publicar una nueva versión:**
-
-1. Realiza tus cambios o correcciones en la carpeta `/src`.
-2. Asegúrate de compilar el código TypeScript:
-   ```bash
-   npm run build
-   ```
-3. Actualiza la versión en el `package.json` de la raíz del proyecto. Puedes usar el comando de npm para que te genere el commit y el tag automáticamente:
-   ```bash
-   npm version patch # Para fixes menores (ej: 1.0.4 -> 1.0.5)
-   npm version minor # Para nuevas funciones (ej: 1.0.4 -> 1.1.0)
-   npm version major # Para cambios que rompen compatibilidad (ej: 1.0.4 -> 2.0.0)
-   ```
-4. Publica el paquete en npm (requiere estar logueado previamente con `npm login` si no lo estás):
-   ```bash
-   npm publish
-   ```
-5. Empuja los commits y tags generados al repositorio remoto:
-   ```bash
-   git push origin main --follow-tags
-   ```
+> **Nota sobre la versión de la GUI:** No es necesario actualizar manualmente la versión en `gui/package.json`. El workflow de GitHub Actions la sincroniza automáticamente desde el tag de Git antes de compilar.
 
 ---
 
-## 2. GUI (Aplicación de Escritorio)
+## Escenario 1: Cambios en CLI y GUI
 
-La aplicación con interfaz gráfica y Electron se encuentra completamente autocontenida en la carpeta `/gui`. Las actualizaciones de esta aplicación se distribuyen a través de la pestaña de **Releases** en GitHub.
+Cuando hay cambios en ambos proyectos, una sola secuencia de comandos publica todo:
 
-Los botones de "Descargar para Windows" o "Descargar para Linux" en la Landing Page siempre apuntan al tag especial genérico de `/releases/latest` en GitHub, garantizando que los usuarios siempre descarguen la versión más reciente publicada.
+```bash
+# 1. Compilar el CLI
+npm run build
 
-**Cómo generar y publicar una nueva versión de la GUI:**
+# 2. Bump de versión (genera commit + tag automáticamente)
+npm version patch   # o minor / major según corresponda
 
-1. Realiza y prueba tus cambios dentro de la carpeta `/gui`.
-2. Haz commit y push de los cambios a la rama `main`:
-   ```bash
-   git add gui/
-   git commit -m "feat(gui): nueva funcionalidad"
-   git push origin main
-   ```
-3. **Dispara la creación del Release en GitHub creando un tag Git:**
-   Debes crear un tag en Git que comience con la letra `v` apuntando a la versión que quieres publicar:
-   ```bash
-   git tag v1.0.7
-   git push origin v1.0.7
-   ```
-   *(También puedes empujar tus tags de una vez usando `git push origin main --tags`)*
+# 3. Publicar CLI en npm
+npm publish
 
-**¿Qué ocurre después de pushear el tag en Git?**
+# 4. Push de todo (el tag v*.*.* dispara el build de la GUI)
+git push origin main --follow-tags
+```
+
+El `npm version` crea el tag `v*.*.*` que automáticamente dispara la GitHub Action para compilar y publicar la GUI.
+
+---
+
+## Escenario 2: Solo cambios en la GUI
+
+Cuando los cambios fueron exclusivamente dentro de `/gui` y no hay nada nuevo en el CLI:
+
+```bash
+# 1. Commit de los cambios
+git add gui/
+git commit -m "feat(gui): descripción del cambio"
+
+# 2. Crear tag manualmente (la versión del tag se inyecta en gui/package.json durante el build)
+git tag v1.0.8   # usar la versión que corresponda
+
+# 3. Push de todo (el tag dispara el build de la GUI)
+git push origin main --follow-tags
+```
+
+> No se ejecuta `npm publish` porque no hay cambios en el CLI.
+
+---
+
+## Escenario 3: Solo cambios en el CLI
+
+Cuando los cambios fueron exclusivamente en `/src` y no hay nada nuevo en la GUI:
+
+```bash
+# 1. Compilar el CLI
+npm run build
+
+# 2. Bump de versión
+npm version patch   # o minor / major según corresponda
+
+# 3. Publicar en npm
+npm publish
+
+# 4. Push de commits (sin --follow-tags para NO disparar el build de la GUI)
+git push origin main
+```
+
+> **Importante:** Se usa `git push origin main` (sin `--follow-tags`) para evitar que el tag dispare un release innecesario de la GUI. Si en el futuro querés generar un release de la GUI con esta misma versión, podés hacer `git push origin v*.*.*` manualmente.
+
+---
+
+## ¿Qué ocurre después de pushear un tag?
 
 1. GitHub intercepta el tag `v*.*.*` y automáticamente arranca la [GitHub Action programada](.github/workflows/release.yml).
 2. La Action levanta dos entornos virtuales en los servidores de GitHub (uno con Windows y otro con Ubuntu).
