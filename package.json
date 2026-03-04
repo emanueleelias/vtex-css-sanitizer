@@ -7,9 +7,10 @@
     "vtex-css-sanitizer": "dist/index.js"
   },
   "scripts": {
-    "build": "npx tsc",
+    "build": "tsc",
     "start": "ts-node src/index.ts",
-    "dev": "npm run build && node dist/index.js"
+    "dev": "npm run build && node dist/index.js",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "vtex",
@@ -20,7 +21,6 @@
   "author": "Elias Daniel Emanuele",
   "license": "ISC",
   "dependencies": {
-    "@types/glob": "^8.1.0",
     "commander": "^11.0.0",
     "glob": "^8.1.0",
     "jsonc-parser": "^3.2.0",
@@ -28,6 +28,7 @@
     "prompts": "^2.4.2"
   },
   "devDependencies": {
+    "@types/glob": "^8.1.0",
     "@types/node": "^20.5.7",
     "@types/prompts": "^2.4.9",
     "ts-node": "^10.9.1",

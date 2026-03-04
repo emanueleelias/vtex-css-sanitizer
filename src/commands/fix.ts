@@ -37,8 +37,16 @@ export async function fixCommand(projectPath: string) {
   const totalFiles = cssFiles.length;
   for (let fileIndex = 0; fileIndex < totalFiles; fileIndex++) {
     const filePath = cssFiles[fileIndex];
-    const originalContent = await fs.readFile(filePath, 'utf-8');
-    const root = postcss.parse(originalContent);
+    let originalContent: string;
+    let root: postcss.Root;
+
+    try {
+      originalContent = await fs.readFile(filePath, 'utf-8');
+      root = postcss.parse(originalContent);
+    } catch (error) {
+      console.error(`❌ Error leyendo/parseando ${path.relative(projectPath, filePath)}: ${error}`);
+      continue;
+    }
 
     const candidates = identifyRulesForDeletion(root, unusedSuffixes);
 
@@ -57,7 +65,7 @@ export async function fixCommand(projectPath: string) {
       const relativePath = path.relative(projectPath, filePath);
       const ruleAsString = rule.toString();
 
-      console.clear();
+      console.log('\n==================================================================');
       console.log(`[ Progreso: Archivo ${fileIndex + 1} de ${totalFiles} ]`);
       console.log(`------------------------------------------------------------------`);
       console.log(`Revisando Archivo: ${relativePath}`);
@@ -111,7 +119,7 @@ export async function fixCommand(projectPath: string) {
     keptRules.push(...fileKeptRules);
   }
 
-  console.clear();
+  console.log('\n==================================================================');
   if (totalRulesRemoved > 0) {
     console.log(`\n✅ Proceso completado. Se eliminaron un total de ${totalRulesRemoved} reglas CSS.`);
   } else {

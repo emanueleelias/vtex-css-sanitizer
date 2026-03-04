@@ -10,13 +10,15 @@ async function ensureReportDirectory(projectPath: string): Promise<string> {
   return reportDir;
 }
 
-// --- Helper para obtener la fecha en formato YYYY-MM-DD ---
+// --- Helper para obtener la fecha en formato YYYY-MM-DD_HHmm ---
 function getFormattedDate(): string {
   const date = new Date();
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const day = date.getDate().toString().padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  return `${year}-${month}-${day}_${hours}${minutes}`;
 }
 
 // --- Generador para el informe de 'analyze' ---
